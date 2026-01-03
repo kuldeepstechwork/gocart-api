@@ -55,4 +55,33 @@ You can use the pre-configured Postman collection included in this repository:
 3.  **Environment**: 
     - The collection uses a `base_url` variable set to `http://localhost:8080/api/v1`.
     - Under the **Variables** tab of the collection, you can update `access_token` after logging in.
-4.  **Authentication**: The collection is pre-configured to use **Bearer Token** authentication for all protected routes.
+## 7. Step-by-Step Testing Flow
+Follow this order to test the full lifecycle of the API:
+
+### Phase 1: Authentication
+1.  **Register**: Run `POST /auth/register` (uses default JSON body).
+2.  **Login**: Run `POST /auth/login` with the same credentials.
+3.  **Set Token**: 
+    - Copy the `access_token` from the login response.
+    - Click the **GoCart API** collection root -> **Variables** tab.
+    - Paste the token into the `access_token` CURRENT VALUE field and click **Save**.
+
+### Phase 2: Catalog Exploration
+1.  **List Categories**: Run `GET /categories` to see available groups.
+2.  **List Products**: Run `GET /products` to see items.
+3.  **Search**: Run `GET /search?q=...` to test search functionality.
+
+### Phase 3: Cart Management (Protected)
+1.  **Add to Cart**: Run `POST /cart/items` (uses product ID from catalog).
+2.  **Get Cart**: Run `GET /cart/` to verify item was added.
+3.  **Update Cart**: Run `PUT /cart/items/:id` to change quantity.
+
+### Phase 4: Checkout
+1.  **Create Order**: Run `POST /orders/`. This will convert your cart into an order.
+2.  **List Orders**: Run `GET /orders/` to see your purchase history.
+3.  **Order Detail**: Run `GET /orders/:id` using the ID from the previous step.
+
+### Phase 5: Admin Tasks (Optional)
+*Note: To test these, you must be an admin user. By default, the first user registered might not be an admin unless manually updated in the DB.*
+1.  **Create Category**: `POST /categories/`.
+2.  **Create Product**: `POST /products/`.

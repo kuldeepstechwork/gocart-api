@@ -16,6 +16,7 @@ import (
 	"github.com/kuldeepstechwork/gocart-api/internal/events"
 	"github.com/kuldeepstechwork/gocart-api/internal/interfaces"
 	"github.com/kuldeepstechwork/gocart-api/internal/logger"
+	"github.com/kuldeepstechwork/gocart-api/internal/models"
 	"github.com/kuldeepstechwork/gocart-api/internal/providers"
 	"github.com/kuldeepstechwork/gocart-api/internal/repositories"
 	"github.com/kuldeepstechwork/gocart-api/internal/server"
@@ -46,6 +47,23 @@ func main() {
 	db, err := database.New(&cfg.Database)
 	if err != nil {
 		log.Fatal().Err(err).Msg("failed to connect to database")
+	}
+
+	// Auto Migration
+	log.Info().Msg("running database migrations")
+	err = db.AutoMigrate(
+		&models.User{},
+		&models.RefreshToken{},
+		&models.Category{},
+		&models.Product{},
+		&models.ProductImage{},
+		&models.Cart{},
+		&models.CartItem{},
+		&models.Order{},
+		&models.OrderItem{},
+	)
+	if err != nil {
+		log.Fatal().Err(err).Msg("failed to run database migrations")
 	}
 
 	mainDB, err := db.DB()
