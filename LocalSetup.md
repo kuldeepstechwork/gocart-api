@@ -45,15 +45,14 @@ You can access the interactive documentation directly in your browser:
 - **RapiDoc UI**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
 
 ## 6. Testing with Postman
-Postman can import the OpenAPI specification directly to create a collection:
+You can use the pre-configured Postman collection included in this repository:
 
-1.  Open Postman.
-2.  Click the **Import** button (top left).
-3.  Choose **Files** and select `docs/swagger.json` from this project directory.
-4.  Alternatively, use the **Link** tab and enter: `http://localhost:8080/docs-files/swagger.json` (ensure the server is running).
-5.  Postman will generate a collection with all endpoints, including request body schemas and parameter descriptions.
-
-### Authentication in Postman
-- Most routes require a Bearer token.
-- Use the `/auth/login` or `/auth/register` endpoints to get an `access_token`.
-- In Postman, go to the **Auth** tab of the collection or request, select **Bearer Token**, and paste the token.
+1.  **Download**: Locate the [gocart-api.postman_collection.json](file:///Users/kuldeepsingh/Desktop/Golang/gocart-api/gocart-api.postman_collection.json) file in the root directory.
+2.  **Import**:
+    - Open Postman.
+    - Click **Import** (top left).
+    - Drag and drop the `gocart-api.postman_collection.json` file.
+3.  **Environment**: 
+    - The collection uses a `base_url` variable set to `http://localhost:8080/api/v1`.
+    - Under the **Variables** tab of the collection, you can update `access_token` after logging in.
+4.  **Authentication**: The collection is pre-configured to use **Bearer Token** authentication for all protected routes.
