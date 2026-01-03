@@ -1,3 +1,4 @@
+// Package main is the entry point for the server.
 package main
 
 import (
@@ -14,9 +15,9 @@ func main() {
 	mux := http.NewServeMux()
 
 	// Health check
-	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/health", func(w http.ResponseWriter, _ *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("OK"))
+		_, _ = w.Write([]byte("OK"))
 	})
 
 	// Initialize handlers
