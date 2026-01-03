@@ -20,6 +20,11 @@ services:
       - "${LOCALSTACK_PORT}:4566"
     environment:
       - SERVICES=s3,sqs,sns
+      - AWS_REGION=${AWS_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME}
+      - AWS_S3_ENDPOINT=${AWS_S3_ENDPOINT}
       - DEBUG=1
       - DATA_DIR=/tmp/localstack/data
     volumes:

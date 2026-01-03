@@ -1,40 +1,128 @@
-// Package main is the entry point for the server.
 package main
 
 import (
-	"log"
+	"context"
+	"errors"
+	"fmt"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
-	"github.com/kuldeepstechwork/gocart-api/api/v1/cart"
-	"github.com/kuldeepstechwork/gocart-api/api/v1/order"
-	"github.com/kuldeepstechwork/gocart-api/api/v1/user"
-	"github.com/kuldeepstechwork/gocart-api/internal/auth"
+	"github.com/gin-gonic/gin"
+	"github.com/kuldeepstechwork/gocart-api/internal/config"
+	"github.com/kuldeepstechwork/gocart-api/internal/database"
+	"github.com/kuldeepstechwork/gocart-api/internal/events"
+	"github.com/kuldeepstechwork/gocart-api/internal/interfaces"
+	"github.com/kuldeepstechwork/gocart-api/internal/logger"
+	"github.com/kuldeepstechwork/gocart-api/internal/providers"
+	"github.com/kuldeepstechwork/gocart-api/internal/repositories"
+	"github.com/kuldeepstechwork/gocart-api/internal/server"
+	"github.com/kuldeepstechwork/gocart-api/internal/services"
 )
 
+// @title Gocart API
+// @version 1.0
+// @description A modern e-commerce API built with Go, Gin, and GORM
+// @termsOfService http://swagger.io/terms/
+
+// @host localhost:8080
+// @BasePath /api/v1
+// @schemas http https
+
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description Type "Bearer" followed by a space and JWT token.
 func main() {
-	mux := http.NewServeMux()
 
-	// Health check
-	mux.HandleFunc("/health", func(w http.ResponseWriter, _ *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		_, _ = w.Write([]byte("OK"))
-	})
-
-	// Initialize handlers
-	cartHandler := cart.NewHandler()
-	userHandler := user.NewHandler()
-	orderHandler := order.NewHandler()
-
-	// Register routes
-	cart.RegisterRoutes(mux, cartHandler)
-	user.RegisterRoutes(mux, userHandler)
-	order.RegisterRoutes(mux, orderHandler)
-
-	// Wrap with middleware
-	handler := auth.Middleware(mux)
-
-	log.Println("Starting server on :8080")
-	if err := http.ListenAndServe(":8080", handler); err != nil {
-		log.Fatalf("Server failed: %v", err)
+	log := logger.New()
+	cfg, err := config.Load()
+	if err != nil {
+		log.Fatal().Err(err).Msg("failed to load config")
 	}
+
+	db, err := database.New(&cfg.Database)
+	if err != nil {
+		log.Fatal().Err(err).Msg("failed to connect to database")
+	}
+
+	mainDB, err := db.DB()
+	if err != nil {
+		log.Fatal().Err(err).Msg("failed to get database connection")
+	}
+	defer mainDB.Close()
+
+	ctx := context.Background()
+
+	eventPublisher, err := events.NewEventPublisher(ctx, &cfg.AWS)
+	if err != nil {
+		log.Error().Err(err).Msg("failed to create event publisher")
+		return
+	}
+	gin.SetMode(cfg.Server.GinMode)
+
+	userRepo := repositories.NewUserRepository(db)
+	cartRepo := repositories.NewCartRepository(db)
+	authService := services.NewAuthService(
+		cfg,
+		eventPublisher,
+		userRepo,
+		cartRepo,
+	)
+	productService := services.NewProductService(db)
+	userService := services.NewUserService(db)
+	cartService := services.NewCartService(db)
+	orderService := services.NewOrderService(db)
+
+	var uploadProvider interfaces.UploadProvider
+	if cfg.Upload.UploadProvider == "s3" {
+		uploadProvider = providers.NewS3Provider(cfg)
+	} else {
+		uploadProvider = providers.NewLocalUploadProvider(cfg.Upload.Path)
+	}
+
+	uploadService := services.NewUploadService(uploadProvider)
+
+	srv := server.New(cfg,
+		&log,
+		authService,
+		productService,
+		userService,
+		uploadService,
+		cartService,
+		orderService)
+
+	router := srv.SetupRoutes()
+
+	httpServer := &http.Server{
+		Addr:         fmt.Sprintf(":%s", cfg.Server.Port),
+		Handler:      router,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	go func() {
+		log.Info().Str("port", cfg.Server.Port).Msg("starting http server")
+		if err := httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			log.Fatal().Err(err).Msg("failed to start http server")
+		}
+	}()
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+
+	log.Info().Msg("shutting down server")
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
+	if err := httpServer.Shutdown(ctx); err != nil {
+		log.Error().Err(err).Msg("failed to shutdown http server")
+		return
+	}
+
+	log.Info().Msg("shutting down database")
+
 }
