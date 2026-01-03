@@ -8,9 +8,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/joefazee/learning-go-shop/graph"
-	"github.com/joefazee/learning-go-shop/graph/model"
-	"github.com/joefazee/learning-go-shop/internal/dto"
+	"github.com/kuldeepstechwork/gocart-api/graph"
+	"github.com/kuldeepstechwork/gocart-api/graph/model"
+	"github.com/kuldeepstechwork/gocart-api/internal/dto"
 )
 
 // Register is the resolver for the register field.

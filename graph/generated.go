@@ -15,8 +15,8 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/joefazee/learning-go-shop/graph/model"
-	"github.com/joefazee/learning-go-shop/internal/dto"
+	"github.com/kuldeepstechwork/gocart-api/graph/model"
+	"github.com/kuldeepstechwork/gocart-api/internal/dto"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )

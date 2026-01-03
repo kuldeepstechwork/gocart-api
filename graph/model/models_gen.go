@@ -3,7 +3,7 @@
 package model
 
 import (
-	"github.com/joefazee/learning-go-shop/internal/dto"
+	"github.com/kuldeepstechwork/gocart-api/internal/dto"
 )
 
 type Mutation struct {

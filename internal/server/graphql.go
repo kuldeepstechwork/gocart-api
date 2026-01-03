@@ -1,6 +1,5 @@
 package server
 
-/*
 import (
 	"context"
 
@@ -96,4 +95,3 @@ func (s *Server) graphqlMiddleware() gin.HandlerFunc {
 
 	}
 }
-*/

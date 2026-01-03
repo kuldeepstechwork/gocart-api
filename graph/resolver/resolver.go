@@ -3,7 +3,7 @@ package resolver
 import (
 	"strconv"
 
-	"github.com/joefazee/learning-go-shop/internal/services"
+	"github.com/kuldeepstechwork/gocart-api/internal/services"
 )
 
 // This file will not be regenerated automatically.
