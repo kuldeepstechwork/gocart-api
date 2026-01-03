@@ -1,6 +1,6 @@
 # GoCart API: Engineering a Production-Grade E-Commerce Nexus
 
-Welcome to **GoCart API**. This isn't just another CRUD-heavy e-commerce skeleton; it's a technical blueprint for building resilient, high-concurrency distributed systems using the Go ecosystem. As a Staff Engineer, I've designed this system to showcase the intersection of Clean Architecture, Event-Driven reliability, and hybrid API design.
+Welcome to **GoCart API**. This isn't just another CRUD-heavy e-commerce skeleton; it's a technical blueprint for building resilient, high-concurrency distributed systems using the Go ecosystem. As a Engineer, I've designed this system to showcase the intersection of Clean Architecture, Event-Driven reliability, and hybrid API design.
 
 ---
 
