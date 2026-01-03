@@ -1,5 +1,6 @@
 package server
 
+/*
 import (
 	"context"
 
@@ -9,9 +10,9 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler/transport"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/gin-gonic/gin"
-	"github.com/joefazee/learning-go-shop/graph"
-	"github.com/joefazee/learning-go-shop/graph/resolver"
-	"github.com/joefazee/learning-go-shop/internal/utils"
+	"github.com/kuldeepstechwork/gocart-api/graph"
+	"github.com/kuldeepstechwork/gocart-api/graph/resolver"
+	"github.com/kuldeepstechwork/gocart-api/internal/utils"
 	"github.com/vektah/gqlparser/v2/ast"
 )
 
@@ -95,3 +96,4 @@ func (s *Server) graphqlMiddleware() gin.HandlerFunc {
 
 	}
 }
+*/

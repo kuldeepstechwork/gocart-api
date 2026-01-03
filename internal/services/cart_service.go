@@ -3,8 +3,8 @@ package services
 import (
 	"errors"
 
-	"github.com/joefazee/learning-go-shop/internal/dto"
-	"github.com/joefazee/learning-go-shop/internal/models"
+	"github.com/kuldeepstechwork/gocart-api/internal/dto"
+	"github.com/kuldeepstechwork/gocart-api/internal/models"
 	"gorm.io/gorm"
 )
 

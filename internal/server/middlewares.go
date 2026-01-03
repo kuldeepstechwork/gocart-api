@@ -4,8 +4,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joefazee/learning-go-shop/internal/models"
-	"github.com/joefazee/learning-go-shop/internal/utils"
+	"github.com/kuldeepstechwork/gocart-api/internal/models"
+	"github.com/kuldeepstechwork/gocart-api/internal/utils"
 )
 
 func (s *Server) authMiddleware() gin.HandlerFunc {

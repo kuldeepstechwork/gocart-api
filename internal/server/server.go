@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	_ "github.com/joefazee/learning-go-shop/docs"
-	"github.com/joefazee/learning-go-shop/internal/config"
-	"github.com/joefazee/learning-go-shop/internal/services"
+	// _ "github.com/kuldeepstechwork/gocart-api/docs"
+	"github.com/kuldeepstechwork/gocart-api/internal/config"
+	"github.com/kuldeepstechwork/gocart-api/internal/services"
 	"github.com/rs/zerolog"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
+	// swaggerFiles "github.com/swaggo/files"
+	// ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type Server struct {
@@ -56,24 +56,24 @@ func (s *Server) SetupRoutes() *gin.Engine {
 	router.GET("/health", s.healthCheck)
 
 	// Add documentation routes
-	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	// router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	router.StaticFile("/api-docs", "./docs/rapidoc.html")
+	// router.StaticFile("/api-docs", "./docs/rapidoc.html")
 
 	router.Static("/uploads", "./uploads")
 
-	router.GET("/playground", s.playgroundHandler())
-	router.GET("/playground/public", s.playgroundPublicHandler())
-	router.GET("/playground/protected", s.playgroundProtectedHandler())
+	// router.GET("/playground", s.playgroundHandler())
+	// router.GET("/playground/public", s.playgroundPublicHandler())
+	// router.GET("/playground/protected", s.playgroundProtectedHandler())
 
-	graphqlPublic := router.Group("/graphql/public")
-	graphqlPublic.Use(s.graphqlMiddleware())
-	graphqlPublic.POST("/", s.graphqlHandler())
+	// graphqlPublic := router.Group("/graphql/public")
+	// graphqlPublic.Use(s.graphqlMiddleware())
+	// graphqlPublic.POST("/", s.graphqlHandler())
 
-	graphqlProtected := router.Group("/graphql")
-	graphqlProtected.Use(s.authMiddleware())
-	graphqlProtected.Use(s.graphqlMiddleware())
-	graphqlProtected.POST("/", s.graphqlHandler())
+	// graphqlProtected := router.Group("/graphql")
+	// graphqlProtected.Use(s.authMiddleware())
+	// graphqlProtected.Use(s.graphqlMiddleware())
+	// graphqlProtected.POST("/", s.graphqlHandler())
 
 	api := router.Group("/api/v1")
 	{

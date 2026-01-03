@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"github.com/joefazee/learning-go-shop/internal/models"
+	"github.com/kuldeepstechwork/gocart-api/internal/models"
 	"gorm.io/gorm"
 )
 

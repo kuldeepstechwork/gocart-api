@@ -1,9 +1,9 @@
 package services
 
 import (
-	"github.com/joefazee/learning-go-shop/internal/dto"
-	"github.com/joefazee/learning-go-shop/internal/models"
-	"github.com/joefazee/learning-go-shop/internal/utils"
+	"github.com/kuldeepstechwork/gocart-api/internal/dto"
+	"github.com/kuldeepstechwork/gocart-api/internal/models"
+	"github.com/kuldeepstechwork/gocart-api/internal/utils"
 	"gorm.io/gorm"
 )
 

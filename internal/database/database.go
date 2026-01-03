@@ -3,7 +3,7 @@ package database
 import (
 	"fmt"
 
-	"github.com/joefazee/learning-go-shop/internal/config"
+	"github.com/kuldeepstechwork/gocart-api/internal/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

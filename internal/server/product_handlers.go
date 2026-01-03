@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joefazee/learning-go-shop/internal/dto"
-	"github.com/joefazee/learning-go-shop/internal/utils"
+	"github.com/kuldeepstechwork/gocart-api/internal/dto"
+	"github.com/kuldeepstechwork/gocart-api/internal/utils"
 )
 
 // @Summary Create a new category

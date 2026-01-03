@@ -4,8 +4,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	_ "github.com/joefazee/learning-go-shop/internal/dto"
-	"github.com/joefazee/learning-go-shop/internal/utils"
+	_ "github.com/kuldeepstechwork/gocart-api/internal/dto"
+	"github.com/kuldeepstechwork/gocart-api/internal/utils"
 )
 
 // @Summary Create an order

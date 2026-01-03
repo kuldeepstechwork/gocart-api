@@ -11,7 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 
-	appconfig "github.com/joefazee/learning-go-shop/internal/config"
+	appconfig "github.com/kuldeepstechwork/gocart-api/internal/config"
 )
 
 type S3Provider struct {

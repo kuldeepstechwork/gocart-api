@@ -3,8 +3,8 @@ package services
 import (
 	"mime/multipart"
 
-	"github.com/joefazee/learning-go-shop/internal/dto"
-	"github.com/joefazee/learning-go-shop/internal/utils"
+	"github.com/kuldeepstechwork/gocart-api/internal/dto"
+	"github.com/kuldeepstechwork/gocart-api/internal/utils"
 )
 
 type AuthServiceInterface interface {

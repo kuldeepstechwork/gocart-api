@@ -6,13 +6,13 @@ import (
 	"log"
 	"time"
 
-	"github.com/joefazee/learning-go-shop/internal/config"
-	"github.com/joefazee/learning-go-shop/internal/dto"
-	"github.com/joefazee/learning-go-shop/internal/events"
-	"github.com/joefazee/learning-go-shop/internal/models"
-	"github.com/joefazee/learning-go-shop/internal/notifications"
-	"github.com/joefazee/learning-go-shop/internal/repositories"
-	"github.com/joefazee/learning-go-shop/internal/utils"
+	"github.com/kuldeepstechwork/gocart-api/internal/config"
+	"github.com/kuldeepstechwork/gocart-api/internal/dto"
+	"github.com/kuldeepstechwork/gocart-api/internal/events"
+	"github.com/kuldeepstechwork/gocart-api/internal/models"
+	"github.com/kuldeepstechwork/gocart-api/internal/notifications"
+	"github.com/kuldeepstechwork/gocart-api/internal/repositories"
+	"github.com/kuldeepstechwork/gocart-api/internal/utils"
 )
 
 var _ AuthServiceInterface = (*AuthService)(nil)

@@ -1,6 +1,6 @@
 package repositories
 
-import "github.com/joefazee/learning-go-shop/internal/models"
+import "github.com/kuldeepstechwork/gocart-api/internal/models"
 
 type UserRepositoryInterface interface {
 	GetByEmail(email string) (*models.User, error)

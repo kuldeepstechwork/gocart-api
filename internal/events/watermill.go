@@ -5,14 +5,14 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/joefazee/learning-go-shop/internal/providers"
+	"github.com/kuldeepstechwork/gocart-api/internal/providers"
 
 	"github.com/ThreeDotsLabs/watermill"
 	"github.com/ThreeDotsLabs/watermill-aws/sqs"
 	"github.com/ThreeDotsLabs/watermill/message"
 
 	_ "github.com/aws/smithy-go/endpoints"
-	appconfig "github.com/joefazee/learning-go-shop/internal/config"
+	appconfig "github.com/kuldeepstechwork/gocart-api/internal/config"
 )
 
 type EventPublisher struct {

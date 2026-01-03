@@ -8,7 +8,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/joefazee/learning-go-shop/internal/interfaces"
+	"github.com/kuldeepstechwork/gocart-api/internal/interfaces"
 )
 
 var _ UploadServiceInterface = (*UploadService)(nil)
