@@ -44,7 +44,34 @@ You can access the interactive documentation directly in your browser:
 - **Swagger UI**: [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
 - **RapiDoc UI**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
 
-## 6. Testing with Postman
+## 6. Testing with GraphQL (Playground)
+You can test the GraphQL API using the built-in Playground:
+- **Playground (Public)**: [http://localhost:8080/playground/public](http://localhost:8080/playground/public)
+- **Playground (Protected)**: [http://localhost:8080/playground](http://localhost:8080/playground)
+
+### Example Query
+To get all categories:
+```graphql
+query {
+  categories {
+    id
+    name
+  }
+}
+```
+
+### Authentication in Playground
+For protected endpoints:
+1.  Open the **Playground (Protected)**.
+2.  At the bottom of the page, click on **HTTP HEADERS**.
+3.  Add your token:
+    ```json
+    {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    }
+    ```
+
+## 7. Testing with Postman
 You can use the pre-configured Postman collection included in this repository:
 
 1.  **Download**: Locate the [gocart-api.postman_collection.json](file:///Users/kuldeepsingh/Desktop/Golang/gocart-api/gocart-api.postman_collection.json) file in the root directory.
@@ -55,7 +82,7 @@ You can use the pre-configured Postman collection included in this repository:
 3.  **Environment**: 
     - The collection uses a `base_url` variable set to `http://localhost:8080/api/v1`.
     - Under the **Variables** tab of the collection, you can update `access_token` after logging in.
-## 7. Step-by-Step Testing Flow
+## 8. Step-by-Step Testing Flow
 Follow this order to test the full lifecycle of the API:
 
 ### Phase 1: Authentication
@@ -66,22 +93,22 @@ Follow this order to test the full lifecycle of the API:
     - Click the **GoCart API** collection root -> **Variables** tab.
     - Paste the token into the `access_token` CURRENT VALUE field and click **Save**.
 
-### Phase 2: Catalog Exploration
-1.  **List Categories**: Run `GET /categories` to see available groups.
-2.  **List Products**: Run `GET /products` to see items.
+### Phase 2: Catalog Exploration (REST or GraphQL)
+1.  **List Categories**: Run `GET /categories` OR use GraphQL `query { categories { id name } }`.
+2.  **List Products**: Run `GET /products` OR use GraphQL `query { products(page: 1, limit: 10) { edges { node { id name } } } }`.
 3.  **Search**: Run `GET /search?q=...` to test search functionality.
 
 ### Phase 3: Cart Management (Protected)
-1.  **Add to Cart**: Run `POST /cart/items` (uses product ID from catalog).
-2.  **Get Cart**: Run `GET /cart/` to verify item was added.
+1.  **Add to Cart**: Run `POST /cart/items` OR use GraphQL `mutation { addToCart(input: { productID: "...", quantity: 1 }) { id } }`.
+2.  **Get Cart**: Run `GET /cart/` OR use GraphQL `query { cart { id items { product { name } quantity } } }`.
 3.  **Update Cart**: Run `PUT /cart/items/:id` to change quantity.
 
 ### Phase 4: Checkout
-1.  **Create Order**: Run `POST /orders/`. This will convert your cart into an order.
-2.  **List Orders**: Run `GET /orders/` to see your purchase history.
-3.  **Order Detail**: Run `GET /orders/:id` using the ID from the previous step.
+1.  **Create Order**: Run `POST /orders/` OR use GraphQL `mutation { createOrder { id status } }`.
+2.  **List Orders**: Run `GET /orders/` OR use GraphQL `query { orders(page: 1, limit: 10) { edges { node { id status } } } }`.
+3.  **Order Detail**: Run `GET /orders/:id` OR use GraphQL `query { order(id: "...") { id total status } }`.
 
 ### Phase 5: Admin Tasks (Optional)
 *Note: To test these, you must be an admin user. By default, the first user registered might not be an admin unless manually updated in the DB.*
-1.  **Create Category**: `POST /categories/`.
-2.  **Create Product**: `POST /products/`.
+1.  **Create Category**: `POST /categories/` OR GraphQL `mutation { createCategory(input: { name: "New Category" }) { id name } }`.
+2.  **Create Product**: `POST /products/` OR GraphQL `mutation { createProduct(input: { name: "New Product", price: 99.99, categoryID: "..." }) { id name } }`.
