@@ -76,10 +76,10 @@ func Load() (*Config, error) {
 		},
 		Database: DatabaseConfig{
 			Host:     getEnv("DB_HOST", "localhost"),
-			Port:     getEnv("DB_PORT", "5432"),
-			User:     getEnv("DB_USER", "postgres"),
-			Password: getEnv("DB_PASSWORD", "password"),
-			Name:     getEnv("DB_NAME", "ecommerce"),
+			Port:     getEnv("POSTGRES_PORT", "5432"),
+			User:     getEnv("POSTGRES_USER", "gocart"),
+			Password: getEnv("POSTGRES_PASSWORD", "secret"),
+			Name:     getEnv("POSTGRES_DB", "gocart"),
 			SSLMode:  getEnv("DB_SSL_MODE", "disable"),
 		},
 		JWT: JWTConfig{
@@ -89,11 +89,11 @@ func Load() (*Config, error) {
 		},
 		AWS: AWSConfig{
 			Region:          getEnv("AWS_REGION", "us-east-1"),
-			AccessKeyID:     getEnv("AWS_ACCESS_KEY_ID", "test"),
-			SecretAccessKey: getEnv("AWS_SECRET_ACCESS_KEY", "test"),
-			S3Bucket:        getEnv("AWS_S3_BUCKET", "ecommerce-uploads"),
+			AccessKeyID:     getEnv("AWS_ACCESS_KEY_ID", "localstack"),
+			SecretAccessKey: getEnv("AWS_SECRET_ACCESS_KEY", "localstack"),
+			S3Bucket:        getEnv("AWS_S3_BUCKET_NAME", "gocart"),
 			S3Endpoint:      getEnv("AWS_S3_ENDPOINT", "http://localhost:4566"),
-			EventQueueName:  getEnv("AWS_EVENT_QUEUE_NAME", "ecommerce-events"),
+			EventQueueName:  getEnv("AWS_EVENT_QUEUE_NAME", "gocart-events"),
 		},
 		Upload: UploadConfig{
 			Path:           getEnv("UPLOAD_PATH", "./uploads"),
