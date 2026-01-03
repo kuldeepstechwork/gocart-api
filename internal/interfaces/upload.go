@@ -1,8 +1,8 @@
 package interfaces
 
-import "context"
+import "mime/multipart"
 
-// UploadProvider is an interface for uploading files.
 type UploadProvider interface {
-	Upload(ctx context.Context, filename string, data []byte) (string, error)
+	UploadFile(file *multipart.FileHeader, path string) (string, error)
+	DeleteFile(path string) error
 }

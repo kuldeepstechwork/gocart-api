@@ -1,4 +1,3 @@
-// Package config provides configuration loading.
 package config
 
 import (
@@ -9,7 +8,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// Config holds the application configuration.
 type Config struct {
 	Server   ServerConfig
 	Database DatabaseConfig
@@ -19,13 +17,11 @@ type Config struct {
 	SMTP     SMTPConfig
 }
 
-// ServerConfig holds server configuration.
 type ServerConfig struct {
 	Port    string
 	GinMode string
 }
 
-// DatabaseConfig holds database configuration.
 type DatabaseConfig struct {
 	Host     string
 	Port     string
@@ -35,14 +31,11 @@ type DatabaseConfig struct {
 	SSLMode  string
 }
 
-// JWTConfig holds JWT configuration.
 type JWTConfig struct {
 	Secret              string
 	ExpiresIn           time.Duration
 	RefreshTokenExpires time.Duration
 }
-
-// AWSConfig holds AWS configuration.
 type AWSConfig struct {
 	Region          string
 	AccessKeyID     string
@@ -52,7 +45,6 @@ type AWSConfig struct {
 	EventQueueName  string
 }
 
-// SMTPConfig holds SMTP configuration.
 type SMTPConfig struct {
 	Host     string
 	Port     int
@@ -61,7 +53,6 @@ type SMTPConfig struct {
 	From     string
 }
 
-// UploadConfig holds upload configuration.
 type UploadConfig struct {
 	Path        string
 	MaxFileSize int64
@@ -70,7 +61,6 @@ type UploadConfig struct {
 	UploadProvider string
 }
 
-// Load loads the configuration from environment variables.
 func Load() (*Config, error) {
 	_ = godotenv.Load()
 

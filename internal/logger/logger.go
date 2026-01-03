@@ -8,13 +8,13 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-// New creates and configures a new zerolog logger.
 func New() zerolog.Logger {
-	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
+	zerolog.TimeFieldFormat = time.RFC3339
 
 	if os.Getenv("GIN_MODE") != "release" {
 		log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339})
 	}
 
 	return log.Logger
+
 }
