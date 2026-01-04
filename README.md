@@ -98,7 +98,7 @@ I've detailed a complete [Local Setup Guide](file:///Users/kuldeepsingh/Desktop/
 
 ---
 
-## 🧪 Testing Strategy: The Staff Engineer's Bar
+## 🧪 Testing Strategy: The Engineer's Bar
 
 I don't just "hit the endpoints." My testing suite includes:
 - **Unit Tests**: Mocking dependencies with `Gomock` to test services in isolation.
